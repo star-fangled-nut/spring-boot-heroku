@@ -1,11 +1,12 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+//@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 @SpringBootApplication
-public class Demo {
+public class Application {
     public static void main(String[] args) {
-        SpringApplication.run(Demo.class, args);
+        SpringApplication.run(Application.class, args);
     }
 }
