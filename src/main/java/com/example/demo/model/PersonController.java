@@ -9,7 +9,7 @@ import java.util.Collection;
 @RequestMapping("/api")
 public class PersonController {
 
-    private PersonRepository personRepository;
+    private final PersonRepository personRepository;
 
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
@@ -17,7 +17,7 @@ public class PersonController {
 
     @GetMapping("/helloEndpoint")
     Collection<Person> helloEndpoint() {
-        return (Collection<Person>) personRepository.findAll();
+        return personRepository.findAll();
     }
 
     @PostMapping("/addPerson")

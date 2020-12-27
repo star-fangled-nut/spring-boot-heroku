@@ -17,6 +17,6 @@ public class DemoLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        this.repository.save(new Person("Paul"));
+        this.repository.save(new Person("John", "Smith"));
     }
 }
