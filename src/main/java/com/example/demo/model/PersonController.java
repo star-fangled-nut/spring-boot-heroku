@@ -6,6 +6,7 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "https://boiling-bastion-39947.herokuapp.com")
 public class PersonController {
 
     private PersonRepository personRepository;
