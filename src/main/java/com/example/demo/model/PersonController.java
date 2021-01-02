@@ -4,25 +4,67 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class PersonController {
 
-    private final PersonRepository personRepository;
+    private final DrinksRepository drinksRepository;
 
-    public PersonController(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public PersonController(DrinksRepository drinksRepository) {
+        this.drinksRepository = drinksRepository;
     }
 
-    @GetMapping("/helloEndpoint")
-    Collection<Person> helloEndpoint() {
-        return personRepository.findAll();
+    @GetMapping("/drinks")
+    Collection<Drink> getAllDrinks() {
+        return drinksRepository.findAll();
     }
 
-    @PostMapping("/addPerson")
-    ResponseEntity<Person> createPerson(@RequestBody Person person) {
-        Person result = personRepository.save(person);
+    @GetMapping("/drinksThisWeek")
+    Collection<Drink> getDrinksThisWeek() {
+        Week currentWeek = new Week();
+
+        return drinksRepository.drinksThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+    }
+
+    @DeleteMapping(value = "/drink/{id}")
+    void deleteDrink(@PathVariable Long id) {
+        drinksRepository.deleteById(id);
+    }
+
+    @GetMapping("/drink/{id}")
+    Optional<Drink> getDrink(@PathVariable Long id) {
+        return drinksRepository.findById(id);
+    }
+
+    @PostMapping("/addDrink")
+    ResponseEntity<Drink> createPerson(@RequestBody Drink drink) {
+        drink.setDate();
+        Drink result = drinksRepository.save(drink);
         return ResponseEntity.ok().body(result);
+    }
+
+    @GetMapping("/totalUnits")
+    double getTotalUnits() {
+        return drinksRepository.getTotal();
+    }
+
+    @GetMapping("/totalUnitsThisWeek")
+    double getTotalUnitsThisWeek() {
+        Week currentWeek = new Week();
+
+        return drinksRepository.getTotalThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+    }
+
+    @GetMapping("/currentWeek")
+    HashMap<String, String> getCurrentWeek() {
+        Week currentWeek = new Week();
+
+        HashMap<String, String> currentWeekMap = new HashMap<>();
+        currentWeekMap.put("startDate", currentWeek.getStartDate().toString());
+        currentWeekMap.put("endDate", currentWeek.getEndDate().toString());
+        return currentWeekMap;
     }
 }
