@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class PersonController {
+public class DrinksController {
 
     private final DrinksRepository drinksRepository;
 
-    public PersonController(DrinksRepository drinksRepository) {
+    public DrinksController(DrinksRepository drinksRepository) {
         this.drinksRepository = drinksRepository;
     }
 
@@ -55,7 +55,11 @@ public class PersonController {
     double getTotalUnitsThisWeek() {
         Week currentWeek = new Week();
 
-        return drinksRepository.getTotalThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+        if(getDrinksThisWeek().isEmpty()) {
+            return 0;
+        } else {
+            return drinksRepository.getTotalThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+        }
     }
 
     @GetMapping("/currentWeek")
