@@ -55,7 +55,11 @@ public class PersonController {
     double getTotalUnitsThisWeek() {
         Week currentWeek = new Week();
 
-        return drinksRepository.getTotalThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+        if(getDrinksThisWeek().isEmpty()) {
+            return 0;
+        } else {
+            return drinksRepository.getTotalThisWeek(currentWeek.getStartDate(), currentWeek.getEndDate());
+        }
     }
 
     @GetMapping("/currentWeek")
