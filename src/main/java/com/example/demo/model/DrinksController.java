@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class PersonController {
+public class DrinksController {
 
     private final DrinksRepository drinksRepository;
 
-    public PersonController(DrinksRepository drinksRepository) {
+    public DrinksController(DrinksRepository drinksRepository) {
         this.drinksRepository = drinksRepository;
     }
 
