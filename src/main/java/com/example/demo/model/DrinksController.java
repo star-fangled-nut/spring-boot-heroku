@@ -40,8 +40,13 @@ public class DrinksController {
     }
 
     @PostMapping("/addDrink")
-    ResponseEntity<Drink> createPerson(@RequestBody Drink drink) {
+    ResponseEntity<Drink> addDrink(@RequestBody Drink drink) {
         drink.setDate();
+
+        if(drink.getUnits() == 0) {
+            drink.calculateUnits();
+        }
+
         Drink result = drinksRepository.save(drink);
         return ResponseEntity.ok().body(result);
     }

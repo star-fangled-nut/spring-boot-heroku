@@ -16,16 +16,17 @@ public class Drink {
 
     private @Id @GeneratedValue Long id;
     private double units;
+    private int volume;
+    private double abv;
 
     @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
 
-    public Drink(double units) {
-        this.units = units;
+    public void setDate() {
         this.date = LocalDate.now();
     }
 
-    public void setDate() {
-        this.date = LocalDate.now();
+    public void calculateUnits() {
+        this.units = (volume * abv)/1000;
     }
 }
