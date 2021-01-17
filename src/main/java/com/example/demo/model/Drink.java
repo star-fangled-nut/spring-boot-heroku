@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 @Entity
@@ -27,6 +28,7 @@ public class Drink {
     }
 
     public void calculateUnits() {
-        this.units = (volume * abv)/1000;
+        DecimalFormat decimalFormat = new DecimalFormat("#.#");
+        this.units = Double.parseDouble(decimalFormat.format((volume * abv) /1000));
     }
 }
